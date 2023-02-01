@@ -33,11 +33,8 @@ pipeline {
     stage('Deploy Docker image') {
       steps{
         dir('express-authors-api') {
-          script {
-            docker.withRegistry( '', registryCredential ) {
-              dockerImage.push()
-            }
-          }
+          sh 'docker tag af340544ed62 http://localhost:8082/repository/docker-hosted/express-authors-api:12'
+          sh 'docker push http://localhost:8082/repository/docker-hosted/express-authors-api:12:af340544ed62'
         }
       }
     }
