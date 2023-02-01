@@ -7,11 +7,6 @@ pipeline {
   agent any
   tools {nodejs "NodeJs"}
   stages {
-    stage('ITest') {
-      steps {
-        sh 'ls'
-      }
-    }
     stage('Install dependencies of the app') {
       steps {
         dir('express-authors-api') {
@@ -25,6 +20,26 @@ pipeline {
           sh 'npm run test'
         }
       }
-    }   
+    }
+    stage('Building Docker image') {
+      steps{
+        dir('express-authors-api') {
+          script {
+            dockerImage = docker.build(registry + ":$BUILD_NUMBER")
+          }
+        }
+      }
+    }
+    stage('Deploy Docker image') {
+      steps{
+        dir('express-authors-api') {
+          script {
+            docker.withRegistry( '', registryCredential ) {
+              dockerImage.push()
+            }
+          }
+        }
+      }
+    }
   }
 }
