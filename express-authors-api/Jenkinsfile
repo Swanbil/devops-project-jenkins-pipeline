@@ -35,7 +35,7 @@ pipeline {
         dir('express-authors-api') {
           script {
             docker.withRegistry( '', registryCredential ) {
-              dockerImage.push()
+              dockerImage.push('oui')
             }
           }
         }
