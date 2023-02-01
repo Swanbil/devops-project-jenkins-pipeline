@@ -1,0 +1,22 @@
+pipeline {
+  environment {
+    registry = "swaninho/node-web-app"
+    registryCredential = 'docker-hub-credentials'
+    dockerImage = ''
+  }
+  agent any
+  tools {nodejs "NodeJs"}
+  stages {
+    stage('Install dependencies of the app') {
+      steps {
+        sh 'npm install'
+      }
+    }
+     
+    stage('Test the app') {
+      steps {
+        sh 'npm run test'
+      }
+    }   
+  }
+}
