@@ -33,11 +33,10 @@ pipeline {
     stage('Deploy Docker image') {
       steps{
         dir('express-authors-api') {
-          script {
-            docker.withRegistry( '', registryCredential ) {
-              dockerImage.push('oui')
-            }
-          }
+          sh 'docker login -u admin -p password root'
+          sh 'docker push http://localhost:8082/repository/docker-hosted/express-authors-api}'
+          sh 'docker rmi $(docker images --filter=reference="http://localhost:8082/repository/docker-hosted/express-authors-api*" -q)'
+          sh 'docker logout http://localhost:8082/repository/'
         }
       }
     }
