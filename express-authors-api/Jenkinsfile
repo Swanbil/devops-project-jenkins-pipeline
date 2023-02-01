@@ -1,7 +1,7 @@
 pipeline {
   environment {
-    registry = "swaninho/express-authors-api"
-    registryCredential = 'docker-hub-credentials'
+    registry = "http://localhost:8082/repository/docker-hosted/"
+    registryCredential = 'docker-nexus'
     dockerImage = ''
   }
   agent any
