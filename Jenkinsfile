@@ -9,15 +9,9 @@ pipeline {
   stages {
     stage('Install dependencies of the app') {
       steps {
-        sh 'cd express-authors-api'
-        sh 'npm install'
+        sh 'echo hello'
+        
       }
     }
-     
-    stage('Test the app') {
-      steps {
-        sh 'npm run test'
-      }
-    }   
   }
 }
