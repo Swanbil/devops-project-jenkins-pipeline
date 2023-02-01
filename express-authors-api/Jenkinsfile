@@ -7,15 +7,23 @@ pipeline {
   agent any
   tools {nodejs "NodeJs"}
   stages {
-    stage('Install dependencies of the app') {
+    stage('ITest') {
       steps {
-        sh 'npm install'
+        sh 'ls'
       }
     }
-     
+    stage('Install dependencies of the app') {
+      steps {
+        dir('express-authors-api') {
+          sh 'npm install'
+        }
+      }
+    }
     stage('Test the app') {
       steps {
-        sh 'npm run test'
+        dir('express-authors-api') {
+          sh 'npm run test'
+        }
       }
     }   
   }
