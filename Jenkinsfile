@@ -9,6 +9,7 @@ pipeline {
   stages {
     stage('Install dependencies of the app') {
       steps {
+        sh 'cd express-authors-api'
         sh 'npm install'
       }
     }
