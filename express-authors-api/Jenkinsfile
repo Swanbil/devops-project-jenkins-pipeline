@@ -9,9 +9,14 @@ pipeline {
   stages {
     stage('Install dependencies of the app') {
       steps {
-        sh 'echo hello'
-        
+        sh 'npm install'
       }
     }
+     
+    stage('Test the app') {
+      steps {
+        sh 'npm run test'
+      }
+    }   
   }
 }
