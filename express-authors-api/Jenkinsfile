@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "http://192.168.1.82:8083/"
+    registry = "http://192.168.1.82:8082/"
     registryCredential = 'docker-nexus'
     dockerImage = ''
     imageName = "express-authors-api"
