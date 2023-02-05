@@ -1,6 +1,6 @@
 const request = require("supertest");
 
-const app = require("../server.js");
+const app = require("../../server.js");
 
 describe("Test basic endpoints", (done) => {
     test("GET / should be 200", (done) => {
