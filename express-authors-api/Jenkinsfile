@@ -1,9 +1,8 @@
 pipeline {
   environment {
-    registry = "http://192.168.1.82:8083/"
-    registryCredential = 'docker-nexus'
+    registry = "swaninho/express-authors-api"
+    registryCredential = 'docker-hub-credentials'
     dockerImage = ''
-    imageName = "express-authors-api"
   }
   agent any
   tools {nodejs "NodeJs"}
@@ -26,8 +25,8 @@ pipeline {
       steps{
         dir('express-authors-api') {
           script {
-            dockerImage = docker.build(imageName)
-          }
+            dockerImage = docker.build(registry + ":$BUILD_NUMBER")
+          } 
         }
       }
     }
@@ -35,7 +34,7 @@ pipeline {
       steps{
         dir('express-authors-api') {
           script {
-            docker.withRegistry(registry, registryCredential){
+            docker.withRegistry( '', registryCredential ) {
               dockerImage.push('latest')
             }
           }
