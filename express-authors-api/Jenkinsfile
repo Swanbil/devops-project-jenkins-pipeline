@@ -47,10 +47,13 @@ pipeline {
         dir('express-authors-api') {
           sh 'docker ps -f name=^preprod$ -q | xargs --no-run-if-empty docker container stop'
           sh 'docker container ls -a -fname=^preprod$ -q | xargs -r docker container rm'
-          dockerImage.run('--restart always --name preprod -p 8082:8082')
-          dockerImage.inside{
-              sh 'npm run test'
+          script{
+            dockerImage.run('--restart always --name preprod -p 8082:8082')
+            dockerImage.inside{
+                sh 'npm run test'
+            }
           }
+          
       }
       }
       
