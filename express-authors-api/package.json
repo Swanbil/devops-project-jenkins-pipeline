@@ -7,7 +7,7 @@
     "test": "jest --forceExit",
     "start": "node server.js"
   },
-  "author": "Jason M. Fisher",
+  "author": "Swaninho",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
