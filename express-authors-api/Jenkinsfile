@@ -41,8 +41,7 @@ pipeline {
         }
       }
     }
-    stage('Deploy to PREPROD') {
-      /* Deploy a container for PREPROD (ensuring to stop and remove it first) */
+    stage('Deploy to PREPROD env') {
       steps{
         dir('express-authors-api') {
           sh 'docker ps -f name=^preprod$ -q | xargs --no-run-if-empty docker container stop'
@@ -52,11 +51,24 @@ pipeline {
             dockerImage.inside{
                 sh 'npm run test'
             }
-          }
-          
+          }   
+        }
       }
+    }
+
+    stage('Deploy to ACCEPTANCE env') {
+      steps{
+        dir('express-authors-api') {
+          sh 'docker ps -f name=^acceptance$ -q | xargs --no-run-if-empty docker container stop'
+          sh 'docker container ls -a -fname=^acceptance$ -q | xargs -r docker container rm'
+          script{
+            dockerImage.run('--restart always --name acceptance -p 8083:8083')
+            dockerImage.inside{
+                sh 'npm run test'
+            }
+          }   
+        }
       }
-      
     }
 
   }
