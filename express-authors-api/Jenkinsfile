@@ -64,8 +64,20 @@ pipeline {
           script{
             dockerImage.run('--restart always --name acceptance -p 8083:8083')
             dockerImage.inside{
-                sh 'npm run test -- performance.test.js'
+                sh 'npm run test -- authors.test.js'
             }
+          }   
+        }
+      }
+    }
+
+    stage('Deploy to PROD env') {
+      steps{
+        dir('express-authors-api') {
+          sh 'docker ps -f name=^prod$ -q | xargs --no-run-if-empty docker container stop'
+          sh 'docker container ls -a -fname=^prod$ -q | xargs -r docker container rm'
+          script{
+            dockerImage.run('--restart always --name acceptance -p 8084:8084')
           }   
         }
       }
