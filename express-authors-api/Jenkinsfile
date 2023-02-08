@@ -77,7 +77,7 @@ pipeline {
           sh 'docker ps -f name=^prod$ -q | xargs --no-run-if-empty docker container stop'
           sh 'docker container ls -a -fname=^prod$ -q | xargs -r docker container rm'
           script{
-            dockerImage.run('--restart always --name acceptance -p 8084:8084')
+            dockerImage.run('--restart always --name prod -p 8084:8084')
           }   
         }
       }
