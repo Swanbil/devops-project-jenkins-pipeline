@@ -10,7 +10,7 @@ pipeline {
     stage('Install dependencies of the app') {
       steps {
         dir('express-authors-api') {
-          discordSend description: 'Jenkins Pipeline Build   currentBuild.currentResult', footer: '', image: '', link: env.BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', thumbnail: '', title: JOB_NAME, webhookURL: 'https://discord.com/api/webhooks/1072614570629288046/o6EWgVc-N4f-56ygpGFjlZGOfdZZCEQJ5Yv1QFXiHhOLlPmssZGkDblS83-1tgQoaDBC'
+          discordSend description: 'Jenkins Pipeline STARTED' + currentBuild.currentResult, footer: "footer desc with vars: ${env.JOB_BASE_NAME}` (build #${BUILD_NUMBER})", image: '', link: env.BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', thumbnail: '', title: "${buildName}", webhookURL: 'https://discord.com/api/webhooks/1072614570629288046/o6EWgVc-N4f-56ygpGFjlZGOfdZZCEQJ5Yv1QFXiHhOLlPmssZGkDblS83-1tgQoaDBC'
           sh 'npm marseille'
         }
       }
@@ -87,7 +87,7 @@ pipeline {
     stage('Send discord notification'){
       steps{
         echo 'Send discord notification of build status'
-        discordSend description: 'Jenkins Pipeline Build   currentBuild.currentResult', footer: '', image: '', link: env.BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', thumbnail: '', title: JOB_NAME, webhookURL: 'https://discord.com/api/webhooks/1072614570629288046/o6EWgVc-N4f-56ygpGFjlZGOfdZZCEQJ5Yv1QFXiHhOLlPmssZGkDblS83-1tgQoaDBC'
+        discordSend description: 'Jenkins Pipeline FINISHED' + currentBuild.currentResult, footer: "footer desc with vars: ${env.JOB_BASE_NAME}` (build #${BUILD_NUMBER})", image: '', link: env.BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', thumbnail: '', title: "${buildName}", webhookURL: 'https://discord.com/api/webhooks/1072614570629288046/o6EWgVc-N4f-56ygpGFjlZGOfdZZCEQJ5Yv1QFXiHhOLlPmssZGkDblS83-1tgQoaDBC', successful: currentBuild.resultIsBetterOrEqualTo('SUCCESS')
       }
     }
 
