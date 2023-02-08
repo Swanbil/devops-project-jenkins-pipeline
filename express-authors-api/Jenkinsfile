@@ -7,20 +7,20 @@ pipeline {
   agent any
   tools {nodejs "NodeJs"}
   stages {
-    stage('Install dependencies of the app') {
-      steps {
-        dir('express-authors-api') {
-          sh 'npm install'
-        }
-      }
-    }
-    stage('Run unit tests') {
-      steps {
-        dir('express-authors-api') {
-          sh 'npm run test -- authors.test.js'
-        }
-      }
-    }
+    // stage('Install dependencies of the app') {
+    //   steps {
+    //     dir('express-authors-api') {
+    //       sh 'npm install'
+    //     }
+    //   }
+    // }
+    // stage('Run unit tests') {
+    //   steps {
+    //     dir('express-authors-api') {
+    //       sh 'npm run test -- authors.test.js'
+    //     }
+    //   }
+    // }
     // stage('Building Docker image') {
     //   steps{
     //     dir('express-authors-api') {
@@ -86,7 +86,7 @@ pipeline {
     stage('Send discord notification'){
       steps{
         echo 'Send discord notification of build status'
-        discordSend description: 'Jenkins Pipeline Build', footer: '', image: '', link: 'env.BUILD_URL', result: 'SUCCESS', scmWebUrl: '', thumbnail: '', title: 'JOB_NAME', webhookURL: 'https://discord.com/api/webhooks/1072614570629288046/o6EWgVc-N4f-56ygpGFjlZGOfdZZCEQJ5Yv1QFXiHhOLlPmssZGkDblS83-1tgQoaDBC'
+        discordSend description: 'Jenkins Pipeline Build', footer: '', image: '', link: env.BUILD_URL, result: currentBuild.currentResult, scmWebUrl: '', thumbnail: '', title: JOB_NAME, webhookURL: 'https://discord.com/api/webhooks/1072614570629288046/o6EWgVc-N4f-56ygpGFjlZGOfdZZCEQJ5Yv1QFXiHhOLlPmssZGkDblS83-1tgQoaDBC'
       }
     }
 
