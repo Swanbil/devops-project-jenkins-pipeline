@@ -82,6 +82,13 @@ pipeline {
         }
       }
     }
+    
+    stage('Send discord notification'){
+      steps{
+        echo 'Send discord notification of build status'
+        discordSend description: 'Jenkins Pipeline Build', footer: '', image: '', link: 'env.BUILD_URL', result: 'currentBuild.currentResult', scmWebUrl: '', thumbnail: '', title: 'JOB_NAME', webhookURL: 'https://discord.com/api/webhooks/1072614570629288046/o6EWgVc-N4f-56ygpGFjlZGOfdZZCEQJ5Yv1QFXiHhOLlPmssZGkDblS83-1tgQoaDBC'
+      }
+    }
 
   }
 }
